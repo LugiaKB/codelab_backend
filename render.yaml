@@ -1,8 +1,6 @@
 databases:
   - name: codelab_backend_db
     plan: free
-    project: codelab_backend
-    users: codelab_backend
 
 services:
   - type: web
@@ -13,7 +11,6 @@ services:
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          project: codelab_backend
           name: codelab_backend_db
           property: connectionString
       - key: SECRET_KEY
