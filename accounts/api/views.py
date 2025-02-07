@@ -2,11 +2,13 @@ from rest_framework import status, generics
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.views import TokenObtainPairView
 from drf_spectacular.utils import extend_schema
 
 from accounts.api.serializers import (
     SignUpSerializer, 
-    SignUpResponseSerializer
+    SignUpResponseSerializer,
+    EmailTokenObtainPairSerializer
 )
 
 @extend_schema(
@@ -37,3 +39,6 @@ class SignUpView(generics.GenericAPIView):
                 }
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class EmailTokenObtainPairView(TokenObtainPairView):
+    serializer_class = EmailTokenObtainPairSerializer
