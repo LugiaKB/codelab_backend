@@ -2,9 +2,20 @@ from rest_framework import status, generics
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
+from drf_spectacular.utils import extend_schema
 
-from accounts.api.serializers import SignUpSerializer
+from accounts.api.serializers import (
+    SignUpSerializer, 
+    SignUpResponseSerializer
+)
 
+@extend_schema(
+    request=SignUpSerializer,
+    responses={
+        201: SignUpResponseSerializer,
+        400: None
+    }
+)
 class SignUpView(generics.GenericAPIView):
     serializer_class = SignUpSerializer
     permission_classes = [AllowAny]

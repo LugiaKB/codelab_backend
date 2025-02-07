@@ -29,11 +29,13 @@ INSTALLED_APPS = [
     "rest_framework",
     "drf_spectacular",
     "django_filters",
+    'corsheaders',  # novo
     # internal
     "accounts",
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # novo - deve vir antes do CommonMiddleware
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -120,3 +122,19 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "API documentation for Codelab project",
     "VERSION": "1.0.0",
 }
+
+# Configurações CORS
+CORS_ALLOW_ALL_ORIGINS = True  # Permite todas as origens em desenvolvimento
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "https://seudominio.com",
+]

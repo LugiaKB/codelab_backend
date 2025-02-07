@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 class SignUpSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -23,3 +24,13 @@ class SignUpSerializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
         return user
+
+class UserResponseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ('id', 'username', 'email')
+
+class SignUpResponseSerializer(serializers.Serializer):
+    refresh = serializers.CharField()
+    access = serializers.CharField()
+    user = UserResponseSerializer()
